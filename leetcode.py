@@ -73,5 +73,102 @@ def sum_by_2_pointers(arr, target):
     
 
 # print(sum_by_2_pointers([0, 0, 0, 5, 3], 0))
-print(sum_by_2_pointers([1, -1, 2, 5, 3], 8))
+# print(sum_by_2_pointers([1, -1, 2, 5, 3], 8))
+
+def isPalindrome(self, x):
+    """
+    :type x: int
+    :rtype: bool
+    """
+    x_list = str(x)
+    s = 0
+    e = len(x_list)-1
+    while s < e:
+        if x_list[s] != x_list[e]:
+            return False
+        s = s+1
+        e = e-1
+    return True
+        
+# isPalindrome(121,121)
+
+def merge(self, nums1, m, nums2, n):
+    """
+    :type nums1: List[int]
+    :type m: int
+    :type nums2: List[int]
+    :type n: int
+    :rtype: None Do not return anything, modify nums1 in-place instead.
+    """
     
+    i = 0
+    while i < n:
+        nums1.pop()
+        i = i + 1
+    
+    e2_step = 0
+    
+    while e2_step < n:
+        print(e2_step)
+        e1_step = 0
+        while e1_step < m:
+            if nums2[e2_step] <= nums1[e1_step]:
+                nums1.insert(e1_step, nums2[e2_step])
+                nums2.pop(e2_step)
+                n -= 1
+                m += 1
+                e2_step -= 1
+                break
+            e1_step += 1
+        e2_step += 1
+    nums1.extend(nums2)
+    print(nums1)
+# merge(0, [4,0,0,0,0,0], 1, [1,2,3,5,6], 5)
+
+def removeElement(self, nums, val):
+    """
+    :type nums: List[int]
+    :type val: int
+    :rtype: int
+    """
+    i = 0
+    while i < len(nums):
+        if nums[i] == val:
+            nums.pop(i)
+            i -= 1
+        i += 1
+        
+    print(nums)
+            
+# removeElement(1, [0,1,2,2,3,0,4,2], 2)
+
+def removeDuplicates(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    compare_list = []
+    i=0
+    while i < len(nums):
+        if nums[i] in compare_list:
+            nums.pop(i)
+            i -= 1
+        else:
+            compare_list.append(nums[i])
+        i += 1
+    print(nums)
+    
+# removeDuplicates(1, [1,1,2])
+
+def majorityElement(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    counts = {}
+    for i in nums:
+        if i in counts:
+            counts[i] += 1
+        else: counts[i] = 1
+    return max(counts, key=counts.get)
+print(majorityElement(1, [2,2,1,1,1,2,2]))
