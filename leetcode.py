@@ -171,4 +171,237 @@ def majorityElement(self, nums):
             counts[i] += 1
         else: counts[i] = 1
     return max(counts, key=counts.get)
-print(majorityElement(1, [2,2,1,1,1,2,2]))
+# print(majorityElement(1, [2,2,1,1,1,2,2]))
+
+def maxProfit(self, prices):
+    """
+    :type prices: List[int]
+    :rtype: int
+    """
+    max_profit = 0
+    start = 0
+    end = 1
+    while end < len(prices):
+        if prices[start] < prices[end]:
+            max_profit = max(max_profit, prices[end] - prices[start])
+            end += 1
+        else:
+            start = end
+            end += 1
+    return max_profit
+# print(maxProfit(1, [2,1,4]))
+
+def lengthOfLastWord(self, s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    last_word = " ".join(s.split()).split(" ")[-1]
+    return len(last_word)
+
+# print(lengthOfLastWord(1, "   fly me   to   the moon  "))
+def plusOne(self, digits):
+    """
+    :type digits: List[int]
+    :rtype: List[int]
+    """
+    
+    result = 0
+    left = len(digits)-1
+    while left >= 0:
+        steps = len(digits)-left-1
+        multiplier = 1
+        while steps > 0:
+            multiplier *= 10
+            steps -= 1
+        result = result + digits[left]*multiplier
+        left -= 1
+    
+    return [int(x) for x in str(result+1)]
+        
+    
+# print(plusOne(1, [1,2,3]))
+
+def buyChoco(self, prices, money):
+    """
+    :type prices: List[int]
+    :type money: int
+    :rtype: int
+    """
+    prices.sort()
+    if prices[0]+prices[1] <= money:
+        return money - prices[0] - prices[1]
+    else: return money
+    
+# print(buyChoco(1, [3,2,3], 3))
+def maxWidthOfVerticalArea(self, points):
+    """
+    :type points: List[List[int]]
+    :rtype: int
+    """
+    x_list = [i[0] for i in points]
+    x_list.sort()
+    length_pairs = []
+
+    right = len(x_list)-1
+    while right > 0:
+        left = right - 1 
+        length_pairs.append(x_list[right]-x_list[left])
+        right -= 1
+        
+    return max(length_pairs)
+
+# print(maxWidthOfVerticalArea(1, [[3,1],[9,0],[1,0],[1,4],[5,3],[8,8]]))
+
+def lengthOfLIS(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    
+    buff_list = []
+    
+    i = 1
+    last_append = 0
+    while i < len(nums)-1:
+        if nums[i] > nums[last_append]:
+            if not buff_list:
+                buff_list.append(nums[last_append])
+                buff_list.append(nums[i])
+                last_append = i
+            else:
+                buff_list.append(nums[i])
+                last_append = i
+        i += 1
+    print(buff_list)
+    return len(buff_list)
+        
+        
+    
+# print(lengthOfLIS(1, [0,1,0,3,2,3]))
+
+def merge(self, nums1, m, nums2, n):
+    """
+    :type nums1: List[int]
+    :type m: int
+    :type nums2: List[int]
+    :type n: int
+    :rtype: None Do not return anything, modify nums1 in-place instead.
+    """
+    
+    nums1 = nums1[:-n]
+    nums1 = nums1 + nums2
+    nums1.sort()
+    print(nums1)
+    
+# merge(1, [1,2,3,0,0,0], 3, [2,5,6], 3)
+
+def romanToInt(self, s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    
+    index = len(s)-1
+    result = 0
+    while index >= 0:
+        if s[index] == 'I':
+            result += 1
+            index -= 1
+        elif s[index] == 'V':
+            if s[index-1] == 'I' and index-1 >= 0:
+                result += 4
+                index -= 2
+            else:
+                result += 5
+                index -= 1
+        elif s[index] == 'X':
+            if s[index-1] == 'I' and index-1 >= 0:
+                result += 9
+                index -= 2
+            else:
+                result += 10
+                index -= 1
+        elif s[index] == 'L': 
+            if s[index-1] == 'X' and index-1 >= 0:
+                result += 40
+                index -= 2
+            else:
+                result += 50
+                index -= 1
+        elif s[index] == 'C':
+            if s[index-1] == 'X' and index-1 >= 0:
+                result += 90
+                index -= 2
+            else:
+                result += 100
+                index -= 1
+        elif s[index] == 'D':
+            if s[index-1] == 'C' and index-1 >= 0:
+                result += 400
+                index -= 2
+            else:
+                result += 500
+                index -= 1
+        elif s[index] == 'M': 
+            if s[index-1] == 'C' and index-1 >= 0:
+                result += 900
+                index -= 2
+            else:
+                result += 1000
+                index -= 1
+    return result
+    
+# print(romanToInt(1, "MMMCDXC"))
+
+def removeDuplicates(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    
+    index = 0
+    count = 0
+    while index <= len(nums)-2:
+        if nums[index+1] == nums[index] and count == 0:
+            count += 2
+            index += 1
+        elif nums[index+1] == nums[index] and count != 0:
+            nums.pop(index+1)
+        else:
+            index += 1
+            count = 0
+    return(len(nums))
+# print(removeDuplicates(1, [1,1,1,1]))
+
+def rotate(self, nums, k):
+    """
+    :type nums: List[int]
+    :type k: int
+    :rtype: None Do not return anything, modify nums in-place instead.
+    """
+    k=k%len(nums)
+    nums[:] = nums[-k:] + nums[:-k]
+    print(nums)
+# rotate(1, [1, 2], 3)
+
+def longestCommonPrefix(self, strs):
+    """
+    :type strs: List[str]
+    :rtype: str
+    """
+    max_letters = min([len(e) for e in strs])
+    strs.sort()
+    longest_common = ''
+    
+    check_index = 0
+    while check_index < max_letters:
+        if strs[0][check_index] == strs[-1][check_index]:
+            longest_common = longest_common + strs[0][check_index]
+        else:
+            return longest_common
+        check_index += 1
+    return longest_common
+    
+  
+print(longestCommonPrefix(1, ["flower","flow","flight"]))
